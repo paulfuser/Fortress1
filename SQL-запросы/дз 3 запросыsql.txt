@@ -1,0 +1,96 @@
+SELECT COUNT (*) FROM student WHERE level = 'Upper-Intermediate';
+
+
+
+Определить общее количество учащихся школы для каждого уровня
+
+SELECT level, COUNT (*) FROM student GROUP BY level;
+
+
+
+
+ДОМАШКА УРОК 3
+
+
+Запрос 1. Найдите общее количество индивидуально обучающихся студентов для каждого уровня.
+
+SELECT level, COUNT (*) FROM student GROUP BY level, education_form 
+	  HAVING education_form='personal' ORDER BY 1 ASC;                      
+
+Запрос 2. Найдите общее количество учащихся школы с уровнем Advanced для каждой формы обучения.
+
+SELECT level, education_form, COUNT (*) FROM student WHERE level = 'Advanced' 
+          GROUP BY level, education_form;
+
+Запрос 3. Найдите общее количество учащихся школы в разрезе уровня и формы обучения, отсортированных по уровню в порядке возрастания и по форме обучения в порядке убывания.
+
+SELECT (level), education_form, COUNT (*) FROM student 
+	  GROUP BY (level), education_form ORDER BY 1;
+
+
+Запрос 4. Найдите максимальное и минимальное id группы (одним запросом).
+
+SELECT MIN(group_id), MAX(group_id) FROM group_student AS gs;
+
+
+Запрос 5. Найдите количество учеников и id группы, в которой наибольшее количество учеников.
+
+SELECT COUNT (user_id), group_id FROM group_student GROUP BY group_id 
+ORDER BY 1 DESC LIMIT 1;
+
+
+ДОПОЛНИТЕЛЬНОЕ ЗАДАНИЕ
+
+CREATE TABLE customers (
+customer_id INTEGER,
+customer_nm VARCHAR (255)
+);
+
+INSERT INTO customers (customer_id, customer_nm)
+VALUES
+(965, 'PETUSHARA'),
+(290, 'MTHRFCKR'),
+(294, 'ISHAK'),
+(335, 'GNIDA'),
+(339, 'JACKAL');
+
+CREATE TABLE sales (
+sale_id INTEGER,
+store_id INTEGER,
+customer_id INTEGER,
+dt DATE,
+amt NUMERIC(10,2)
+);
+
+INSERT INTO sales (sale_id, store_id, customer_id, dt, amt)
+VALUES
+(1, 55, 965, '2023-01-23', 1111.26),
+(2, 55, 965, '2023-01-23', 1211.26),
+(3, 55, 965, '2023-01-23', 1311.26),
+(4, 66, 290, '2023-02-12', 2222.36),
+(5, 66, 290, '2023-02-12', 2322.36),
+(6, 66, 290, '2023-02-12', 2422.36),
+(7, 77, 294, '2023-03-15', 3333.46),
+(8, 77, 294, '2023-03-15', 3433.46),
+(9, 77, 294, '2023-03-15', 3533.46),
+(10, 88, 335, '2023-04-20', 6666.66), 
+(12, 99, 339, '2023-05-25', 4444.56);
+
+Запрос 1. Выведите максимальную сумму покупки.
+	  SELECT MAX(amt) FROM sales;
+
+Запрос 2. Выведите минимальную дату покупки.
+	  SELECT MIN(dt) FROM sales;
+
+Запрос 3. Выведите среднюю сумму покупок для customer_id = 1.
+	  SELECT AVG (amt) FROM sales WHERE customer_id='965';
+	--ПРИМЕЧАНИЕ:вместо customer_id = '1' использован customer_id='965', в данном случае это 	- одно и то же, так как '965' стоит в списке customer_id первым (решил не 	переделывать снова таблицу customers и менять в ней номера, прошу меня за это 	великодушно простить))))
+
+Запрос 4. Выведите минимальную и максимальную сумму покупки, совершенную в магазине с store_id = 3 или покупателем с customer_id = 2.
+	  SELECT MIN(amt), MAX(amt) FROM sales WHERE store_id='77';
+	  SELECT MIN(amt), MAX(amt) FROM sales WHERE customer_id='290';
+	--ПРИМЕЧАНИЕ:вместо customer_id = '2' использован customer_id='290', а также, вместо 	store_id='3' использован store_id='77', в данном случае это - одно и то же, так как '965' 	стоит в списке customer_id первым (решил не переделывать снова таблицу 	customers и менять в ней номера, прошу меня за это великодушно простить))))
+
+Запрос 5. Выведите количество уникальных имен покупателей.
+	SELECT COUNT(DISTINCT customer_nm) FROM customers;
+

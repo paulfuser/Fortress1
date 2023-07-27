@@ -1,0 +1,40 @@
+ЗАДАНИЕ 4.
+
+
+CREATE TABLE animal_classes (
+id INTEGER,
+class VARCHAR (10)
+);
+
+INSERT INTO animal_classes (id, class)
+VALUES
+(1, 'кошка'),
+(2, 'собака');
+
+CREATE TABLE animal_info (
+name VARCHAR (10),
+class INTEGER,
+owner VARCHAR (10);
+
+INSERT INTO animal_info (name, class, owner)
+VALUES
+('Кити', 1, 'Ваня'),
+('Мити', 2, 'Ваня'),
+('Пити', 1, 'Петя');
+
+INSERT INTO animal_info (name, class, owner)
+VALUES
+('Кити', 1, 'Ваня'),
+('Мити', 2, 'Ваня'),
+('Пити', 1, 'Петя');
+
+Запрос 1. сколько всего животных у Вани?;
+	  SELECT COUNT (name) FROM animal_info WHERE owner='Ваня';
+
+Запрос 2. имена всех кошек?;
+	  SELECT (name) FROM animal_info WHERE class='1';
+
+Запрос 3. Уникальные имена всех хозяев, отсортированные по алфавиту?;
+	  SELECT DISTINCT (owner) FROM animal_info ORDER BY (owner) ASC;;
+	
+
